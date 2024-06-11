@@ -216,12 +216,12 @@ public class CertHttpService {
 
     public static byte [] coverToPfx(byte [] jks, String password) {
         try {
-
+            Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
             KeyStore inputKeyStore = KeyStore.getInstance("JKS");
             ByteArrayInputStream inputStream = new ByteArrayInputStream(jks);
             inputKeyStore.load(inputStream, password.toCharArray());
 
-            KeyStore outputKeyStore = KeyStore.getInstance("PKCS12");
+            KeyStore outputKeyStore = KeyStore.getInstance("PKCS12","BC");
 
             outputKeyStore.load(null, password.toCharArray());
 
